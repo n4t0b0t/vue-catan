@@ -11,7 +11,7 @@
           :y="yScale(0)"
           :width="xScale.bandwidth()"
           :height="0"
-        ></rect>
+        />
       </g>
     </svg>
   </div>
@@ -24,7 +24,7 @@ import { selectAll } from "d3-selection";
 import { transition } from "d3-transition";
 
 export default {
-  name: "BarChart",
+  name: "VerticalChart",
   props: {
     title: String,
     xKey: String,

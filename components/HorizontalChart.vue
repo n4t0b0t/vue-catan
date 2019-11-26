@@ -6,20 +6,11 @@
 import d3 from "../assets/d3";
 export default {
   props: ["data"],
-  //   computed: {
-  //     chartData: function() {
-  //       return this.data;
-  //     }
-  //   },
   mounted() {
     this.generateChart();
   },
   methods: {
     generateChart() {
-      console.log(d3.max(this.data.map(d => d.count)));
-      //   var x = d3
-      //     .scaleLinear([0, d3.max(this.data.map(d => d.count))])
-      //     .range([0, 420]);
       return d3
         .select(".chart")
         .selectAll("div")

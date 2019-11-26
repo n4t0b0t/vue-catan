@@ -1,7 +1,5 @@
 <template>
-  <button v-on:click="$emit('increase')">
-    {{ roll.roll }} {{ roll.count }}
-  </button>
+  <button v-on:click="$emit('increase')">{{ roll.roll }}</button>
 </template>
 
 <script>

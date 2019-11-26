@@ -7,33 +7,33 @@
       v-on:increase="increaseCount(roll)"
     ></Counter>
     <!-- <button v-on:click="endGame = true">End Game</button>
-    <BarChart
+    <VerticalChart
       v-if="endGame"
       title="Bar Chart"
       xKey="roll"
       yKey="count"
       :data="rolls"
-    /> -->
-    <HorizontalChart :data="rolls" />
+    />-->
+    <!-- <HorizontalChart :data="rolls" /> -->
+    <SVGChart :data="rolls" />
   </div>
 </template>
 
 <script>
 import Counter from "../components/Counter.vue";
-// import BarChart from "../components/BarChart";
+import SVGChart from "../components/SVGChart";
 import HorizontalChart from "../components/HorizontalChart";
 
 export default {
   components: {
     Counter,
-    // BarChart,
+    SVGChart,
     HorizontalChart
   },
   data() {
     return {
       endGame: false,
       rolls: [
-        { id: 1, roll: 1, count: 0 },
         { id: 2, roll: 2, count: 0 },
         { id: 3, roll: 3, count: 0 },
         { id: 4, roll: 4, count: 0 },
