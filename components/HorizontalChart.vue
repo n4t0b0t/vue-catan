@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import * as d3 from "d3-selection";
+import d3 from "../assets/d3";
 export default {
   props: ["data"],
   //   computed: {
@@ -13,21 +13,31 @@ export default {
   //   },
   mounted() {
     this.generateChart();
-    console.log("I AM MOUNTED!");
   },
   methods: {
     generateChart() {
-      d3.select(".chart")
+      console.log(d3.max(this.data.map(d => d.count)));
+      //   var x = d3
+      //     .scaleLinear([0, d3.max(this.data.map(d => d.count))])
+      //     .range([0, 420]);
+      return d3
+        .select(".chart")
         .selectAll("div")
         .data(this.data)
         .enter()
         .append("div")
-        .style("width", function(d) {
-          return d.count * 10 + "px";
-        })
+        .style("width", d => this.xScale(d.count) + "px")
         .text(function(d) {
           return d.roll;
         });
+    }
+  },
+  computed: {
+    xScale() {
+      return d3
+        .scaleLinear()
+        .domain([0, d3.max(this.data.map(d => d.count))])
+        .range([0, 420]);
     }
   },
   watch: {

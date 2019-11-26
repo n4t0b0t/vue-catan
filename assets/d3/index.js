@@ -7,8 +7,8 @@ export default {
   select,
   selectAll,
   scaleLinear,
-  scaleTime,
-  scaleOrdinal,
-  schemeCategory10,
-  axisTop
+  scaleBand,
+  max,
+  min,
+  transition
 };
