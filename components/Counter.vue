@@ -1,8 +1,6 @@
 <template>
-  <div class="counter-button">
-    {{ roll.roll }}
-    <button v-on:click="$emit('increase')">+</button>
-    <button v-on:click="$emit('decrease')">-</button>
+  <div>
+    <button class="counter-button" v-on:click="$emit('increase')">{{ roll.roll }}</button>
   </div>
 </template>
 
@@ -13,14 +11,26 @@ export default {
 </script>
 
 <style>
-button {
-  padding: 10px;
-}
 .counter-button {
   float: left;
-  margin: 10px;
-  padding: 0 10px;
-  border: 1px solid white;
-  font-size: 1rem;
+}
+
+button {
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 3px;
+  padding: 7px 20px;
+  margin: 5px;
+  color: #ffffff;
+  background-color: #5995da;
+}
+
+button:hover {
+  background-color: #76aeed;
+}
+
+button:active {
+  background-color: #407fc7;
 }
 </style>

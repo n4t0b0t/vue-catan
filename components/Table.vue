@@ -9,6 +9,7 @@
         <td>{{ roll.probability }}</td>
         <td>{{ roll.count }}</td>
         <td>{{ roll.expected }}</td>
+        <button class="undo-button" v-on:click="$emit('decrease', roll)">-</button>
       </tr>
     </tbody>
   </table>

@@ -1,13 +1,15 @@
 <template>
   <div>
+    <Dice v-if="!manual" />
     <Counter
       v-for="roll in rolls"
       v-bind:key="roll.id"
       v-bind:roll="roll"
-      v-on:increase="increaseCount(roll), calculateExpectedRolls()"
-      v-on:decrease="decreaseCount(roll), calculateExpectedRolls()"
+      v-on:increase="increaseCount(roll)"
+      v-on:decrease="decreaseCount(roll)"
     ></Counter>
-    <Table :rolls="rolls" />
+    <button class="undo-button" v-on:click="undoLastRoll">Undo</button>
+    <Table :rolls="rolls" v-on:decrease="decreaseCount" />
     <SVGVerticalChart :data="rolls" />
     <!-- <VerticalChart
       v-if="endGame"
@@ -20,16 +22,19 @@
 </template>
 
 <script>
+import Dice from "../components/Dice.vue";
 import Counter from "../components/Counter.vue";
 import SVGVerticalChart from "../components/SVGVerticalChart";
 import Table from "../components/Table";
 
 export default {
   components: {
+    Dice,
     Counter,
     SVGVerticalChart,
     Table
   },
+  props: { manual: Boolean },
   data() {
     return {
       totalRolls: 0,
@@ -45,18 +50,31 @@ export default {
         { id: 10, roll: 10, count: 0, expected: 0, probability: 0.083 },
         { id: 11, roll: 11, count: 0, expected: 0, probability: 0.056 },
         { id: 12, roll: 12, count: 0, expected: 0, probability: 0.028 }
-      ]
+      ],
+      lastRoll: 0
     };
   },
   methods: {
     increaseCount(roll) {
       this.totalRolls++;
       roll.count++;
+      this.lastRoll = roll;
+      this.calculateExpectedRolls();
     },
     decreaseCount(roll) {
       if (roll.count > 0) {
         this.totalRolls--;
         roll.count--;
+        this.lastRoll = 0;
+        this.calculateExpectedRolls();
+      }
+    },
+    undoLastRoll() {
+      if (!this.lastRoll) {
+        alert("no roll to undo");
+      } else {
+        this.decreaseCount(this.lastRoll);
+        this.calculateExpectedRolls();
       }
     },
     calculateExpectedRolls() {
@@ -68,3 +86,24 @@ export default {
   }
 };
 </script>
+
+<style>
+.undo-button {
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 3px;
+  padding: 7px 20px;
+  margin: 5px;
+  color: #ffffff;
+  background-color: #da595f;
+}
+
+.undo-button:hover {
+  background-color: #ed7676;
+}
+
+.undo-button:active {
+  background-color: #c74052;
+}
+</style>
