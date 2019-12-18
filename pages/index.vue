@@ -1,12 +1,11 @@
 <template>
   <div>
     <h1>May Catan Prosper!</h1>
-    <div>Current Mode: {{ manual ? "manual" : "automatic" }}
+    <h4>Current Mode: {{ manual ? "manual" : "automatic" }}</h4>
     <label class="switch">
       <input type="checkbox" v-on:click="switchMode"/>
       <span class="slider round"></span>
     </label>
-    </div>
     <RollTracker :manual="manual" />
   </div>
 </template>

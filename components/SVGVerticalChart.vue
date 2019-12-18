@@ -53,7 +53,7 @@ export default {
         .attr("dy", ".75em")
         .attr("anchor", "middle")
         .text(function(d) {
-          return d.roll + " rolls: " + d.count;
+          return d.number + " rolls: " + d.count;
         });
 
       bar

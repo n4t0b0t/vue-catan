@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="counter-button" v-on:click="$emit('increase')">{{ roll.roll }}</button>
+    <button class="counter-button" v-on:click="$emit('increase', roll.number)">{{ roll.number }}</button>
   </div>
 </template>
 

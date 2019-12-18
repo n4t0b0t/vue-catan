@@ -1,12 +1,11 @@
 <template>
   <div>
-    <Dice v-if="!manual" />
+    <Dice v-if="!manual" v-on:increase="increaseCount"/>
     <Counter
       v-for="roll in rolls"
       v-bind:key="roll.id"
       v-bind:roll="roll"
-      v-on:increase="increaseCount(roll)"
-      v-on:decrease="decreaseCount(roll)"
+      v-on:increase="increaseCount"
     ></Counter>
     <button class="undo-button" v-on:click="undoLastRoll">Undo</button>
     <Table :rolls="rolls" v-on:decrease="decreaseCount" />
@@ -39,32 +38,34 @@ export default {
     return {
       totalRolls: 0,
       rolls: [
-        { id: 2, roll: 2, count: 0, expected: 0, probability: 0.028 },
-        { id: 3, roll: 3, count: 0, expected: 0, probability: 0.056 },
-        { id: 4, roll: 4, count: 0, expected: 0, probability: 0.083 },
-        { id: 5, roll: 5, count: 0, expected: 0, probability: 0.111 },
-        { id: 6, roll: 6, count: 0, expected: 0, probability: 0.139 },
-        { id: 7, roll: 7, count: 0, expected: 0, probability: 0.167 },
-        { id: 8, roll: 8, count: 0, expected: 0, probability: 0.139 },
-        { id: 9, roll: 9, count: 0, expected: 0, probability: 0.111 },
-        { id: 10, roll: 10, count: 0, expected: 0, probability: 0.083 },
-        { id: 11, roll: 11, count: 0, expected: 0, probability: 0.056 },
-        { id: 12, roll: 12, count: 0, expected: 0, probability: 0.028 }
+        { id: 2, number: 2, count: 0, expected: 0, probability: 0.028 },
+        { id: 3, number: 3, count: 0, expected: 0, probability: 0.056 },
+        { id: 4, number: 4, count: 0, expected: 0, probability: 0.083 },
+        { id: 5, number: 5, count: 0, expected: 0, probability: 0.111 },
+        { id: 6, number: 6, count: 0, expected: 0, probability: 0.139 },
+        { id: 7, number: 7, count: 0, expected: 0, probability: 0.167 },
+        { id: 8, number: 8, count: 0, expected: 0, probability: 0.139 },
+        { id: 9, number: 9, count: 0, expected: 0, probability: 0.111 },
+        { id: 10, number: 10, count: 0, expected: 0, probability: 0.083 },
+        { id: 11, number: 11, count: 0, expected: 0, probability: 0.056 },
+        { id: 12, number: 12, count: 0, expected: 0, probability: 0.028 }
       ],
       lastRoll: 0
     };
   },
   methods: {
-    increaseCount(roll) {
+    increaseCount(number) {
       this.totalRolls++;
-      roll.count++;
-      this.lastRoll = roll;
+      const foundIndex = this.rolls.findIndex(roll => roll.number === number);
+      this.rolls[foundIndex].count++;
+      this.lastRoll = this.rolls[foundIndex].number;
       this.calculateExpectedRolls();
     },
-    decreaseCount(roll) {
-      if (roll.count > 0) {
+    decreaseCount(number) {
+      const foundIndex = this.rolls.findIndex(roll => roll.number === number);
+      if (this.rolls[foundIndex].count > 0) {
         this.totalRolls--;
-        roll.count--;
+        this.rolls[foundIndex].count--;
         this.lastRoll = 0;
         this.calculateExpectedRolls();
       }
